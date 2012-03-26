@@ -32,6 +32,7 @@ Library
       Language.Python.Common.PrettyToken
       Language.Python.Common.AST
       Language.Python.Common.PrettyAST
+      Language.Python.Common.Builder
       Language.Python.Version3
       Language.Python.Version3.Parser
       Language.Python.Version3.Lexer

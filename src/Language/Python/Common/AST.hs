@@ -76,7 +76,11 @@ class Annotated t where
    annot :: t annot -> annot
 
 -- | Identifier.
-data Ident annot = Ident { ident_string :: !String, ident_annot :: annot }
+data Ident annot = Ident { ident_string :: String
+                         , ident_annot :: annot }
+                 | UniqueIdent { ident_base :: String
+                               , ident_number :: !Int
+                               , ident_annot :: annot }
    deriving (Eq,Ord,Show,Typeable,Data)
 
 type IdentSpan = Ident SrcSpan
