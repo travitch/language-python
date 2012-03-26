@@ -20,7 +20,7 @@ extra-source-files:  src/Language/Python/Version3/Parser/Parser.y
 Library
    hs-source-dirs: src
    build-depends:    base == 4.*, containers, pretty == 1.0.*, array,
-                     mtl > 2
+                     mtl > 2, uniplate > 1 && < 2
    build-tools:      happy, alex
    exposed-modules:
       Language.Python.Common
