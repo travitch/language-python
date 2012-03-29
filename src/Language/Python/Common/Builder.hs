@@ -41,7 +41,7 @@ module Language.Python.Common.Builder (
   AssignOpQ, FromItemQ, ExceptClauseQ, CompForQ, CompIterQ, CompIfQ,
 
   -- * Names
-  captureName, newName,
+  captureName, newName, makeDottedName,
 
   -- * Modules
   moduleM,
@@ -147,11 +147,14 @@ module Language.Python.Common.Builder (
   handlerAH, exceptClauseAC,
 
   -- * Annotated Comprehensions
-  comprehensionAC, compForAC, compIfAC, iterForAC, iterIfAC
+  comprehensionAC, compForAC, compIfAC, iterForAC, iterIfAC,
+
+  module AST
   ) where
 
 import Control.Monad.State.Strict
 import Data.Data ( Data )
+import Data.List ( foldl' )
 import Data.Generics.Uniplate.Data
 import Data.Map ( Map )
 import qualified Data.Map as M
@@ -296,6 +299,11 @@ newNameA annot nameBase = do
   let uid = nextId s
   put s { nextId = uid + 1 }
   return $ UniqueIdent nameBase uid annot
+
+-- | Make a dotted name expression from a list of names.
+makeDottedName :: (Monoid annot) => [Ident annot] -> ExprQ annot
+makeDottedName (base:names) =
+  foldl' (binaryOpE dotO) (varE base) (map varE names)
 
 -- Module
 
