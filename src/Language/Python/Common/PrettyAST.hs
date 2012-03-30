@@ -12,6 +12,8 @@
 
 module Language.Python.Common.PrettyAST () where
 
+import Data.List ( find )
+
 import Language.Python.Common.Pretty
 import Language.Python.Common.AST
 
@@ -30,7 +32,10 @@ blankLine = text []
 prettyString :: String -> Doc
    -- XXX should handle the escaping properly
 -- prettyString str = text (show str)
-prettyString str = text (concat ["\"", str, "\""])
+prettyString str =
+  case find (=='\n') str of
+    Nothing -> text (concat ["\"", str, "\""])
+    Just _ -> text (concat ["'''", str, "'''"])
 
 instance Pretty (Module a) where
    pretty (Module stmts) = vcat $ map pretty stmts
