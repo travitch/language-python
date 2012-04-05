@@ -511,7 +511,12 @@ returnAS annot mexpr = do
   expr' <- T.sequence mexpr
   return $ Return expr' annot
 
-tryS :: (Monoid annot) => [StatementQ annot] -> [HandlerQ annot] -> [StatementQ annot] -> [StatementQ annot] -> StatementQ annot
+tryS :: (Monoid annot)
+        => [StatementQ annot] -- ^ Try block
+        -> [HandlerQ annot]   -- ^ Exception handling clauses
+        -> [StatementQ annot] -- ^ Else block
+        -> [StatementQ annot] -- ^ Finally block
+        -> StatementQ annot
 tryS = tryAS mempty
 
 tryAS :: annot -> [StatementQ annot] -> [HandlerQ annot] -> [StatementQ annot] -> [StatementQ annot] -> StatementQ annot
