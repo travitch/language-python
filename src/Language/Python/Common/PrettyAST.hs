@@ -257,6 +257,7 @@ instance Pretty (Expr a) where
    pretty (ListComp { list_comprehension = lc }) = brackets $ pretty lc
    pretty (Generator { gen_comprehension = gc }) = parens $ pretty gc
    pretty (Paren { paren_expr = e }) = parens $ pretty e
+   pretty (Starred { starred_expr = e }) = text "*" <> pretty e
 
 instance Pretty (Slice a) where
    pretty (SliceProper { slice_lower = lower, slice_upper = upper, slice_stride = stride })
