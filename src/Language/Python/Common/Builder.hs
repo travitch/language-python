@@ -763,7 +763,9 @@ tupleE = tupleAE mempty
 tupleAE :: annot -> [ExprQ annot] -> ExprQ annot
 tupleAE annot exprs = do
   exprs' <- sequence exprs
-  return $ Tuple exprs' annot
+  case not (null exprs) of
+    False -> return $ Tuple [] annot
+    True -> parenAE annot (return $ Tuple exprs' annot)
 
 yieldE :: (Monoid annot) => Maybe (ExprQ annot) -> ExprQ annot
 yieldE = yieldAE mempty

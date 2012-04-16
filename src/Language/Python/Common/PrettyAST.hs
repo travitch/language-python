@@ -246,8 +246,8 @@ instance Pretty (Expr a) where
    pretty (Tuple { tuple_exprs = es }) =
       case es of
          [] -> text "()"
-         [e] -> text "(" <> pretty e <> comma <> text ")"
-         _ -> text "(" <> commaList es <> text ")"
+         [e] -> pretty e <> comma
+         _ -> commaList es
    pretty (Yield { yield_expr = e })
       = text "yield" <+> pretty e
    pretty (List { list_exprs = es }) = brackets (commaList es)
